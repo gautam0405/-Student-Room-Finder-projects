@@ -1,0 +1,69 @@
+/* FORM SECTIONS - GLASSMORPHISM (Index/Login/Register Common) */
+.form-section {
+  margin: 60px auto;
+  padding: 40px;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+/* Input fields */
+.form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Button styling */
+.btn-primary {
+  width: 100%;
+  background: #ffcc00;
+  border: none;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #ffb700;
+  transform: scale(1.05);
+}
+
+/* Login link below form */
+.login-link {
+  margin-top: 15px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.login-link a {
+  color: #ffcc00;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+  .form-section {
+    padding: 30px 20px;
+    margin: 40px 20px;
+  }
+}

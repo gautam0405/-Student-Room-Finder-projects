@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results | Student Room Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🏠 Student Room Finder</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="post-room.html">Post Room</a></li>
+            <li><a href="#search">Search</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="login.html" class="login-btn">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="form-section glass">
+    <h2>Search Results</h2>
+
+    <div id="searchResults" class="results">
+        <!-- Results will be populated by JavaScript -->
+    </div>
+
+    <button class="btn-secondary" onclick="window.history.back()" style="margin-top: 20px;">Back to Search</button>
+</section>
+
+<script>
+    // Get search results from URL parameters or localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const resultsData = urlParams.get('results');
+
+    const resultsDiv = document.getElementById('searchResults');
+
+    if (resultsData) {
+        try {
+            const results = JSON.parse(decodeURIComponent(resultsData));
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p>No rooms found matching your criteria.</p>';
+            } else {
+                results.forEach(room => {
+                    const card = document.createElement('div');
+                    card.classList.add('result-card');
+
+                    card.innerHTML = `
+                        <h3>${room.location}</h3>
+                        <p><b>Address:</b> ${room.address}</p>
+                        <p><b>Rent:</b> ₹${room.rent}</p>
+                        <p><b>Type:</b> ${room.type}</p>
+                        <p><b>Status:</b> ${room.status}</p>
+                        <button class="btn-primary" onclick="contactOwner('${room.contact || 'N/A'}')">Contact Owner</button>
+                    `;
+
+                    resultsDiv.appendChild(card);
+                });
+            }
+        } catch (error) {
+            resultsDiv.innerHTML = '<p>Error loading search results.</p>';
+        }
+    } else {
+        resultsDiv.innerHTML = '<p>No search results found. Please go back and search again.</p>';
+    }
+
+    function contactOwner(contact) {
+        if (contact === 'N/A') {
+            alert('Contact information not available');
+        } else {
+            alert(`Contact: ${contact}`);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Student Room Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🏠 Student Room Finder</div>
+</header>
+
+<section class="form-section glass">
+    <h2>Register</h2>
+    <p>Create your account to post or find rooms easily</p>
+
+    <form id="registerForm" class="form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="text" placeholder="Location (City/Area)" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <button type="submit" class="btn-primary">Register</button>
+    </form>
+
+    <p class="login-link">
+        Already have an account? <a href="login.html" style="color:#ffcc00; font-weight:600;">Login</a>
+    </p>
+</section>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const name = form.querySelector('input[placeholder="Full Name"]').value;
+    const email = form.querySelector('input[placeholder="Email Address"]').value;
+    const phone = form.querySelector('input[placeholder="Phone Number"]').value;
+    const location = form.querySelector('input[placeholder="Location (City/Area)"]').value;
+    const password = form.querySelector('input[placeholder="Password"]').value;
+    const confirm = form.querySelector('input[placeholder="Confirm Password"]').value;
+
+    if(password !== confirm){
+        alert("Passwords do not match!");
+        return;
+    }
+
+    if(!name || !email || !phone || !location || !password){
+        alert("Please fill all fields!");
+        return;
+    }
+
+    // Save to localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const existingUser = users.find(u => u.email === email);
+    if(existingUser){
+        alert("User already exists!");
+        return;
+    }
+
+    users.push({name, email, phone, location, password});
+    localStorage.setItem('users', JSON.stringify(users));
+
+    alert("Registration successful!");
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>

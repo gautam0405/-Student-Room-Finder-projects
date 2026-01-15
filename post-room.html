@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Room</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🏠 Student Room Finder</div>
+</header>
+
+<section class="form-section glass">
+    <h2>Post Your Room</h2>
+    <p>Fill in the details to list your room for students</p>
+
+    <form id="postForm" class="form">
+        <input type="text" placeholder="Location (e.g., Delhi, Mumbai)" required>
+        <input type="text" placeholder="Full Address" required>
+        <input type="text" placeholder="Flat Number" required>
+        <input type="number" placeholder="Rent (₹)" required>
+        <input type="number" placeholder="Deposit (₹)" required>
+        <select required>
+            <option value="">Select Room Type</option>
+            <option value="single">Single</option>
+            <option value="double">Double</option>
+            <option value="1bhk">1 BHK</option>
+            <option value="2bhk">2 BHK</option>
+            <option value="3bhk">3 BHK</option>
+        </select>
+        <input type="date" placeholder="Availability Date" required>
+        <input type="file" accept="image/*" multiple required>
+        <button type="submit" class="btn-primary">Post Room</button>
+    </form>
+</section>
+
+<script>
+document.getElementById('postForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Room posted successfully!');
+});
+</script>
+
+</body>
+</html>

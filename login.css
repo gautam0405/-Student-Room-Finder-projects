@@ -1,0 +1,120 @@
+/* ------------------ RESET ------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ------------------ BODY ------------------ */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ------------------ NAVBAR ------------------ */
+.navbar {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* ------------------ FORM SECTION ------------------ */
+.form-section, .login-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+}
+
+/* Titles */
+.login-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+  color: #f1f1f1;
+}
+
+/* ------------------ INPUTS ------------------ */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 0.95rem;
+}
+
+.input-group input::placeholder {
+  color: #e0e0e0;
+}
+
+/* ------------------ BUTTON ------------------ */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #333;
+}
+
+.btn-primary:hover {
+  background: #ffb700;
+  transform: scale(1.05);
+}
+
+/* ------------------ EXTRA LINKS ------------------ */
+.extra-links {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.extra-links a {
+  color: #ffcc00;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+.extra-links p {
+  margin-top: 10px;
+  color: #f1f1f1;
+}
+
+/* ------------------ RESPONSIVE ------------------ */
+@media screen and (max-width: 500px) {
+  .login-box {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+}

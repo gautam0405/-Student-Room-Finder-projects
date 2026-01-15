@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Room Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body> <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">🏠 Student Room Finder</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="post-room.html">Post Room</a></li>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+        </nav>
+    </header> <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Find Verified Rooms Near Your College</h1>
+            <p>Smart, secure, and student-friendly platform for room sharing and searching.</p> 
+            <button class="btn-primary" onclick="document.getElementById('search').scrollIntoView()">Explore Now</button>
+        </div>
+    </section> <!-- Search Room Section -->
+    <section id="search" class="form-section glass">
+        <h2>Search Rooms</h2>
+        <form id="searchForm"> <input type="text" placeholder="Enter Location" required> <input type="number"
+                placeholder="Max Rent (₹)"> <select>
+                <option value="">Room Type</option>
+                <option value="single">Single</option>
+                <option value="double">Double</option>
+                <option value="1bhk">1 BHK</option>
+                <option value="2bhk">2 BHK</option>
+                <option value="3bhk">3 BHK</option>
+            </select> <button type="submit" class="btn-primary">Search</button> </form>
+        <div id="searchResults" class="results"></div>
+    </section> <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Email: support@studentroomfinder.com</p>
+        <p>Phone: +91 98765 43210</p>
+    </section> <!-- Footer -->
+    <footer>
+        <p>© 2026 Student Room Finder | Designed for Students</p>
+    </footer>
+    <script src="app.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+
+</html>
