@@ -72,6 +72,12 @@ footer {
   color: white;
 }
 
+/* Map Section */
+#map-section {
+  width: 100%;
+  padding: 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .features {

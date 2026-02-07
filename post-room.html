@@ -8,6 +8,13 @@
 
 <header class="navbar">
     <div class="logo">🏠 Student Room Finder</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li id="userInfoNav" style="display:none;"><span id="userNameSpan"></span></li>
+            <li id="logoutNav" style="display:none;"><a onclick="logout()" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
 </header>
 
 <section class="form-section glass">
@@ -15,12 +22,12 @@
     <p>Fill in the details to list your room for students</p>
 
     <form id="postForm" class="form">
-        <input type="text" placeholder="Location (e.g., Delhi, Mumbai)" required>
-        <input type="text" placeholder="Full Address" required>
-        <input type="text" placeholder="Flat Number" required>
-        <input type="number" placeholder="Rent (₹)" required>
-        <input type="number" placeholder="Deposit (₹)" required>
-        <select required>
+        <input type="text" id="location" placeholder="Location (e.g., Delhi, Mumbai)" required>
+        <input type="text" id="address" placeholder="Full Address" required>
+        <input type="text" id="flatNumber" placeholder="Flat Number" required>
+        <input type="number" id="rent" placeholder="Rent (₹)" required>
+        <input type="number" id="deposit" placeholder="Deposit (₹)" required>
+        <select id="roomType" required>
             <option value="">Select Room Type</option>
             <option value="single">Single</option>
             <option value="double">Double</option>
@@ -28,8 +35,11 @@
             <option value="2bhk">2 BHK</option>
             <option value="3bhk">3 BHK</option>
         </select>
-        <input type="date" placeholder="Availability Date" required>
-        <input type="file" accept="image/*" multiple required>
+        <input type="date" id="availabilityDate" required>
+        <input type="tel" id="contact" placeholder="Contact Number" required>
+        <textarea id="description" placeholder="Room Description (Optional)" rows="4" style="padding: 12px; border-radius: 8px; border: none; font-size: 0.95rem; font-family: 'Poppins', sans-serif;"></textarea>
+        <textarea id="amenities" placeholder="Amenities (e.g., WiFi, AC, Kitchen - separate with comma)" rows="3" style="padding: 12px; border-radius: 8px; border: none; font-size: 0.95rem; font-family: 'Poppins', sans-serif;"></textarea>
+        <input type="file" id="images" accept="image/*" multiple required>
         <button type="submit" class="btn-primary">Post Room</button>
     </form>
 </section>
@@ -37,7 +47,38 @@
 <script>
 document.getElementById('postForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Room posted successfully!');
+    
+    // Get current user
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    const userName = user?.name || user?.email || 'Anonymous';
+    
+    // Create post object
+    const newPost = {
+        location: document.getElementById('location').value,
+        address: document.getElementById('address').value,
+        flatNumber: document.getElementById('flatNumber').value,
+        rent: document.getElementById('rent').value,
+        deposit: document.getElementById('deposit').value,
+        roomType: document.getElementById('roomType').value,
+        availabilityDate: document.getElementById('availabilityDate').value,
+        contact: document.getElementById('contact').value,
+        description: document.getElementById('description').value,
+        amenities: document.getElementById('amenities').value,
+        postedBy: userName,
+        postedDate: new Date().toLocaleDateString(),
+        status: 'pending',
+        id: Date.now()
+    };
+    
+    // Save to localStorage
+    const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    existingPosts.push(newPost);
+    localStorage.setItem('posts', JSON.stringify(existingPosts));
+    
+    alert('Room posted successfully! Wait for agent approval.');
+    
+    // Redirect to home
+    window.location.href = 'index.html';
 });
 </script>
 

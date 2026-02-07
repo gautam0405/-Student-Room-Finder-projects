@@ -8,6 +8,9 @@ import Register from './pages/Register';
 import PostRoom from './pages/PostRoom';
 import SearchRoom from './pages/SearchRoom';
 import SearchResults from './pages/SearchResults';
+import HostelPage from './pages/HostelPage';
+import HostelResults from './pages/HostelResults';
+import AgentDashboard from './pages/AgentDashboard';
 import './App.css';
 
 function App() {
@@ -22,6 +25,9 @@ function App() {
           <Route path="/post-room" element={<PostRoom />} />
           <Route path="/search-room" element={<SearchRoom />} />
           <Route path="/search-results" element={<SearchResults />} />
+          <Route path="/hostel/:gender" element={<HostelPage />} />
+          <Route path="/hostel-results" element={<HostelResults />} />
+          <Route path="/agent-dashboard" element={<AgentDashboard />} />
         </Routes>
         <Chatbot />
       </div>

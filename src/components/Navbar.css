@@ -40,6 +40,32 @@ nav a:hover {
   border-radius: 5px;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffcc00;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.logout-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  font-size: 0.95rem;
+}
+
+.logout-btn:hover {
+  background: #ee5a52;
+  transform: scale(1.05);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .navbar {

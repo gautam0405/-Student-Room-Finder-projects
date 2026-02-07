@@ -19,6 +19,23 @@
   <p>Login to continue your journey</p>
 
   <form id="loginForm" class="form">
+    <div class="role-selection">
+      <label><strong>Select Role:</strong></label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="role" value="user" checked>
+          <span>1. User</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="role" value="agent">
+          <span>2. Agent</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="role" value="employee">
+          <span>3. Employee</span>
+        </label>
+      </div>
+    </div>
     <input type="email" placeholder="Email Address" required>
     <input type="password" placeholder="Password" required>
     <button type="submit" class="btn-primary">Login</button>
@@ -32,23 +49,32 @@
 <script>
 document.getElementById('loginForm').addEventListener('submit', function(e){
     e.preventDefault();
+    const role = e.target.querySelector('input[name="role"]:checked').value;
     const email = e.target.querySelector('input[type="email"]').value;
     const password = e.target.querySelector('input[type="password"]').value;
 
-    if(!email || !password){
+    if(!role || !email || !password){
         alert("Please fill in all fields!");
         return;
     }
 
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.email === email && u.password === password);
+    const user = users.find(u => u.email === email && u.password === password && u.role === role);
 
     if(user){
-        alert("Login successful!");
+        alert(`Login successful as ${role}!`);
         localStorage.setItem('loggedInUser', JSON.stringify(user));
-        window.location.href = "index.html";
+        
+        // Redirect based on role
+        if(role === 'agent'){
+            window.location.href = "agent-dashboard.html";
+        } else if(role === 'employee'){
+            window.location.href = "employee-dashboard.html";
+        } else {
+            window.location.href = "index.html";
+        }
     } else {
-        alert("Invalid email or password!");
+        alert("Invalid email, password, or role!");
     }
 });
 </script>
