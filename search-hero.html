@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room & Hostel Finder - Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .hero-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Search Bar Styles */
+        .search-bar {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:hover {
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Input Field Wrapper */
+        .search-field {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-right: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .search-field:last-of-type {
+            border-right: none;
+        }
+
+        .search-field:hover {
+            background: #fafafa;
+        }
+
+        .search-field.active {
+            background: #f8f9ff;
+        }
+
+        /* Icon Styles */
+        .search-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        /* Input Styles */
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 16px 0;
+            font-size: 1rem;
+            background: transparent;
+            color: #333;
+            font-family: inherit;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
+        .search-input:focus {
+            color: #333;
+        }
+
+        .search-input:focus::placeholder {
+            color: #bbb;
+        }
+
+        /* Search Button */
+        .search-btn {
+            padding: 0 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+            box-shadow: inset 0 -1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Select Dropdown Styles */
+        .search-select {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 16px 0;
+            font-size: 1rem;
+            background: transparent;
+            color: #333;
+            font-family: inherit;
+            cursor: pointer;
+            appearance: none;
+            padding-right: 10px;
+        }
+
+        .search-select:focus {
+            color: #333;
+        }
+
+        .search-select option {
+            background: white;
+            color: #333;
+            padding: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-header p {
+                font-size: 0.95rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                border-radius: 8px;
+            }
+
+            .search-field {
+                border-right: none;
+                border-bottom: 1px solid #f0f0f0;
+                padding: 15px 16px;
+                min-height: 56px;
+            }
+
+            .search-field:last-of-type {
+                border-bottom: none;
+            }
+
+            .search-input,
+            .search-select {
+                padding: 8px 0;
+            }
+
+            .search-btn {
+                width: 100%;
+                padding: 16px;
+                border-radius: 0 0 8px 8px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-header {
+                margin-bottom: 30px;
+            }
+
+            .search-field {
+                padding: 12px 12px;
+                min-height: 48px;
+            }
+
+            .search-icon {
+                font-size: 1.2rem;
+                margin-right: 10px;
+            }
+
+            .search-input,
+            .search-select {
+                font-size: 0.95rem;
+            }
+
+            .search-btn {
+                font-size: 0.95rem;
+                padding: 14px;
+            }
+        }
+
+        /* Animation on load */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-bar {
+            animation: slideUp 0.6s ease;
+        }
+
+        .hero-header {
+            animation: slideUp 0.6s ease;
+        }
+
+        /* Focus Ring */
+        .search-field:focus-within {
+            background: #f8f9ff;
+        }
+
+        .search-field:focus-within .search-icon {
+            color: #764ba2;
+            transform: scale(1.1);
+            transition: all 0.2s ease;
+        }
+
+        /* Loading State */
+        .search-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Success State */
+        .search-bar.success {
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <div class="hero-header">
+            <h1>Find Your Perfect Room</h1>
+            <p>Search from thousands of verified rooms and hostels</p>
+        </div>
+
+        <form class="search-bar" id="searchForm">
+            <!-- Location Field -->
+            <div class="search-field">
+                <span class="search-icon">📍</span>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Enter location"
+                    id="locationInput"
+                    autocomplete="off"
+                >
+            </div>
+
+            <!-- Hostel Field -->
+            <div class="search-field">
+                <span class="search-icon">🏠</span>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Search hostel"
+                    id="hostelInput"
+                    autocomplete="off"
+                >
+            </div>
+
+            <!-- Price Range Field -->
+            <div class="search-field">
+                <span class="search-icon">💰</span>
+                <select class="search-select" id="priceSelect">
+                    <option value="">Select price range</option>
+                    <option value="0-500">₹ 0 - 500</option>
+                    <option value="500-1000">₹ 500 - 1000</option>
+                    <option value="1000-1500">₹ 1000 - 1500</option>
+                    <option value="1500-2000">₹ 1500 - 2000</option>
+                    <option value="2000-2500">₹ 2000 - 2500</option>
+                    <option value="2500+">₹ 2500+</option>
+                </select>
+            </div>
+
+            <!-- Search Button -->
+            <button type="submit" class="search-btn">
+                <span>🔍</span>
+                <span>Search</span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('searchForm');
+        const locationInput = document.getElementById('locationInput');
+        const hostelInput = document.getElementById('hostelInput');
+        const priceSelect = document.getElementById('priceSelect');
+        const searchBtn = document.querySelector('.search-btn');
+        const searchBar = document.querySelector('.search-bar');
+
+        // Add active state to fields when focused
+        [locationInput, hostelInput, priceSelect].forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('active');
+            });
+
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('active');
+            });
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const location = locationInput.value.trim();
+            const hostel = hostelInput.value.trim();
+            const price = priceSelect.value;
+
+            if (!location && !hostel) {
+                alert('Please enter at least a location or search term');
+                return;
+            }
+
+            // Show loading state
+            searchBtn.classList.add('loading');
+            searchBtn.innerHTML = '<span>⏳</span><span>Searching...</span>';
+
+            // Simulate search delay and show success
+            setTimeout(() => {
+                searchBar.classList.add('success');
+                searchBtn.classList.remove('loading');
+                searchBtn.innerHTML = '<span>✓</span><span>Search Complete!</span>';
+
+                // Log search parameters (can be replaced with API call)
+                console.log('Search Parameters:', {
+                    location: location,
+                    hostel: hostel,
+                    priceRange: price
+                });
+
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    searchBtn.innerHTML = '<span>🔍</span><span>Search</span>';
+                    searchBar.classList.remove('success');
+                }, 2000);
+
+                // In a real application, you would redirect to results page
+                // window.location.href = `/search-results?location=${location}&hostel=${hostel}&price=${price}`;
+            }, 1000);
+        });
+
+        // Clear input on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                locationInput.value = '';
+                hostelInput.value = '';
+                priceSelect.value = '';
+                locationInput.focus();
+            }
+        });
+
+        // Optional: Add autocomplete suggestions
+        const suggestedLocations = [
+            'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 
+            'Pune', 'Chennai', 'Kolkata', 'Noida'
+        ];
+
+        locationInput.addEventListener('input', function() {
+            const value = this.value.toLowerCase();
+            if (value.length > 0) {
+                const suggestions = suggestedLocations.filter(loc => 
+                    loc.toLowerCase().includes(value)
+                );
+                if (suggestions.length > 0) {
+                    console.log('Suggestions:', suggestions);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
