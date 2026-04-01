@@ -4,61 +4,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Room Finder</title>
+    <title>Student Room Finder & Marketplace</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Dual Features Hero */
+        .features-hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #007bff, #00c6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-title {
+            color: white;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            color: #f1f1f1;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            font-weight: 500;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+        }
+
+        .feature-card:first-child::before {
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+        }
+
+        .feature-card:last-child::before {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            color: #333;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            min-height: 60px;
+        }
+
+        .feature-benefits {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .feature-benefits li {
+            color: #666;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-benefits li::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .feature-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-feature-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-feature-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 86, 179, 0.4);
+        }
+
+        .feature-card:last-child .btn-feature-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .feature-card:last-child .btn-feature-primary:hover {
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-feature-secondary {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+            padding: 12px 30px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-feature-secondary:hover {
+            border-color: #333;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-section {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-hero {
+                padding: 20px 15px;
+            }
+
+            .feature-card {
+                padding: 25px 20px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+            }
+
+            .feature-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
 </head>
 
-<body> <!-- Navigation Bar -->
+<body>
+    <!-- Navigation Bar -->
     <header class="navbar">
         <div class="logo">🏠 Student Room Finder</div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li id="postRoomNav"><a onclick="checkLogin(event, 'post-room.html')">Post Room</a></li>
-                <li id="searchNav"><a onclick="checkLogin(event, '#search')">Search</a></li>
+                <li><a href="marketplace.html">🛍️ Marketplace</a></li>
                 <li><a href="map.html">🗺️ Map</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li id="postRoomNav"><a onclick="checkLogin(event, 'post-room.html')">Post Room</a></li>
+                <li id="searchNav"><a onclick="checkLogin(event, '#features')">Search Room</a></li>
                 <li id="loginNav"><a href="login.html" class="login-btn">Login</a></li>
                 <li id="userInfoNav" style="display:none;"><span id="userNameSpan"></span></li>
                 <li id="logoutNav" style="display:none;"><a onclick="logout()" class="logout-btn">Logout</a></li>
             </ul>
         </nav>
-    </header> <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Find Verified Rooms Near Your College</h1>
-            <p>Smart, secure, and student-friendly platform for room sharing and searching.</p> 
-            <button class="btn-primary" onclick="document.getElementById('search').scrollIntoView()">Explore Now</button>
+    </header>
+
+    <!-- Hero Section with Dual Features -->
+    <section id="home" class="features-hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Welcome to Student Hub 🎓</h1>
+            <p class="hero-subtitle">Your Complete Platform for Rooms & essentials</p>
+
+            <!-- Features Grid -->
+            <div class="features-grid">
+                <!-- Room Finding Feature -->
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h2 class="feature-title">Find Your Room</h2>
+                    <p class="feature-description">
+                        Discover verified rooms near your college with competitive prices and detailed information.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Browse verified listings</li>
+                        <li>View locations on map</li>
+                        <li>Contact landlords directly</li>
+                        <li>Filter by budget & amenities</li>
+                    </ul>
+                    <div class="feature-buttons">
+                        <button class="btn-feature-primary" onclick="location.href='#features'">🔍 Search Rooms</button>
+                        <a href="map.html" class="btn-feature-secondary">📍 View on Map</a>
+                    </div>
+                </div>
+
+                <!-- Marketplace Feature -->
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h2 class="feature-title">Student Marketplace</h2>
+                    <p class="feature-description">
+                        Buy and sell affordable second-hand items from fellow students.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Affordable used items</li>
+                        <li>Browse by category</li>
+                        <li>Connect with sellers</li>
+                        <li>Post items for free</li>
+                    </ul>
+                    <div class="feature-buttons">
+                        <button class="btn-feature-primary" onclick="location.href='marketplace.html'">🛍️ Browse Items</button>
+                        <a href="sell-item.html" class="btn-feature-secondary">📦 Sell Item</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Happy Students</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+            </div>
         </div>
-    </section> <!-- Search Room Section -->
-    <section id="search" class="form-section glass">
-        <h2>Search Rooms</h2>
+    </section>
+
+    <!-- Search Room Section -->
+    <section id="features" class="form-section glass">
+        <h2>🔍 Search Rooms</h2>
         <div id="loginRequiredMessage" style="display:none; text-align: center; padding: 30px; background: rgba(255, 107, 107, 0.2); border-radius: 10px; color: white; margin-bottom: 20px;">
             <p style="font-size: 1.1rem; margin: 0;">🔒 Please <a href="login.html" style="color: #ffcc00; text-decoration: none; font-weight: 600;">Login</a> to search rooms</p>
         </div>
-        <form id="searchForm" style="display:none;"> <input type="text" placeholder="Enter Location" required> <input type="number"
-                placeholder="Max Rent (₹)"> <select>
+        <form id="searchForm" style="display:none;">
+            <input type="text" placeholder="Enter Location" required>
+            <input type="number" placeholder="Max Rent (₹)">
+            <select>
                 <option value="">Room Type</option>
                 <option value="single">Single</option>
                 <option value="double">Double</option>
                 <option value="1bhk">1 BHK</option>
                 <option value="2bhk">2 BHK</option>
                 <option value="3bhk">3 BHK</option>
-            </select> <button type="submit" class="btn-primary">Search</button> </form>
+            </select>
+            <button type="submit" class="btn-primary">Search</button>
+        </form>
         <div id="searchResults" class="results"></div>
-    </section> <!-- Contact Section -->
+    </section>
+
+    <!-- Contact Section -->
     <section id="contact" class="contact-section">
-        <h2>Contact Us</h2>
+        <h2>📞 Contact Us</h2>
         <p>Email: support@studentroomfinder.com</p>
         <p>Phone: +91 98765 43210</p>
-    </section> <!-- Footer -->
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>© 2026 Student Room Finder | Designed for Students</p>
+        <p>© 2026 Student Room Finder | Your Complete Student Platform</p>
     </footer>
+
     <script src="app.js"></script>
     <script src="chatbot.js"></script>
     <script>
-        // Check login status on page load
         function updateNavbar() {
             const user = JSON.parse(localStorage.getItem('loggedInUser'));
             const loginNav = document.getElementById('loginNav');
@@ -68,7 +375,6 @@
             const loginMessage = document.getElementById('loginRequiredMessage');
 
             if (user) {
-                // User is logged in
                 loginNav.style.display = 'none';
                 userInfoNav.style.display = 'block';
                 logoutNav.style.display = 'block';
@@ -76,7 +382,6 @@
                 searchForm.style.display = 'flex';
                 loginMessage.style.display = 'none';
             } else {
-                // User is not logged in
                 loginNav.style.display = 'block';
                 userInfoNav.style.display = 'none';
                 logoutNav.style.display = 'none';
@@ -106,10 +411,7 @@
             window.location.href = '#home';
         }
 
-        // Update navbar on page load
         window.addEventListener('load', updateNavbar);
-        
-        // Also check for storage changes (when logging in from another tab)
         window.addEventListener('storage', updateNavbar);
     </script>
 </body>

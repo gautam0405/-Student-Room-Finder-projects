@@ -70,18 +70,28 @@
             color: white;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .stat-card h3 {
-            font-size: 0.9rem;
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 204, 0, 0.5);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }85rem;
             color: #ffcc00;
             margin: 0 0 10px 0;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2)sform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -117,24 +127,27 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
 
         .filter-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             border-color: #ffcc00;
+            transform: translateY(-2px);
         }
 
         .filter-btn.active {
-            background: #ffcc00;
+            background: linear-gradient(135deg, #ffcc00, #ff9600);
             color: #333;
             border-color: #ffcc00;
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
         }
 
         .posts-container {
@@ -154,17 +167,20 @@
         }
 
         .post-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 12px;
-            padding: 25px;
-            border-left: 5px solid #ffcc00;
+            background: rgba5px;
+            padding: 30px;
+            border-left: 6px solid #ffcc00;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
             color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .post-card:hover {
+            transform: translateY(-5px) translateX(5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 204, 0, 0.3
             transform: translateY(-2px);
             box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
         }
@@ -301,52 +317,54 @@
             color: #4caf50;
         }
 
-        .timeline-item.rejected {
-            color: #ff6b6b;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+        .timeline-2px;
+            margin-top: 25px;
             flex-wrap: wrap;
         }
 
         .action-buttons button {
             flex: 1;
-            min-width: 120px;
-            padding: 10px 15px;
+            min-width: 140px;
+            padding: 12px 18px;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .btn-approve {
-            background: rgba(76, 175, 80, 0.8);
+            background: linear-gradient(135deg, #4caf50, #45a049);
             color: white;
         }
 
         .btn-approve:hover {
-            background: #4caf50;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
         }
 
         .btn-reject {
-            background: rgba(255, 107, 107, 0.8);
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
             color: white;
         }
 
         .btn-reject:hover {
-            background: #ff6b6b;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
         }
 
         .btn-delete {
-            background: rgba(100, 100, 100, 0.8);
+            background: linear-gradient(135deg, #757575, #616161);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(100, 100, 100, 0.4 100, 100, 0.8);
             color: white;
         }
 
@@ -415,13 +433,31 @@
 </head>
 <body>
     <div class="agent-dashboard">
+        <!-- Navigation Bar -->
+        <header class="navbar">
+            <div class="logo">🏠 Student Room Finder</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="map.html">📍 Map</a></li>
+                    <li id="userInfoNav"><span id="userNameSpan"></span></li>
+                    <li id="logoutNav"><a onclick="logout()" class="logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
         <!-- Header -->
         <div class="dashboard-header glass">
             <div class="header-content">
                 <h1>🏢 Agent Dashboard</h1>
                 <p id="welcomeText">Welcome, Agent</p>
+                <a href="post-room.html" class="btn-post" style="margin-top: 15px; display: inline-block; background: #4caf50; color: white; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s;">
+                    ➕ Post New Room
+                </a>
             </div>
-            <button class="btn-logout" onclick="logout()">Logout</button>
+            <div class="dashboard-welcome" style="text-align: right; color: white;">
+                <p style="font-size: 0.9rem; color: #f1f1f1;">Manage your room listings here</p>
+            </div>
         </div>
 
         <!-- Stats -->
@@ -475,7 +511,8 @@
                 return;
             }
 
-            document.getElementById('welcomeText').textContent = `Welcome, ${user.name || user.email}`;
+            document.getElementById('welcomeText').textContent = `Welcome back, ${user.name || user.email}!`;
+            document.getElementById('userNameSpan').textContent = '👤 ' + (user.name || user.email);
 
             // Load all posts
             allPosts = JSON.parse(localStorage.getItem('posts')) || [];

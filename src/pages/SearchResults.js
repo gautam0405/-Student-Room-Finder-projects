@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Room.css';
+import TabbedSearchBar from '../components/TabbedSearchBar';
 
 const SearchResults = () => {
   const location = useLocation();
@@ -18,6 +19,11 @@ const SearchResults = () => {
 
   return (
     <div style={{ minHeight: '100vh', padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
+      {/* Tabbed Search Bar at top */}
+      <section style={{ marginBottom: '40px' }}>
+        <TabbedSearchBar />
+      </section>
+
       <div style={{ marginBottom: '40px' }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>
           {getTitle()} Found

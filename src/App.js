@@ -11,6 +11,8 @@ import SearchResults from './pages/SearchResults';
 import HostelPage from './pages/HostelPage';
 import HostelResults from './pages/HostelResults';
 import AgentDashboard from './pages/AgentDashboard';
+import Marketplace from './pages/Marketplace';
+import PostItem from './pages/PostItem';
 import './App.css';
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
           <Route path="/hostel/:gender" element={<HostelPage />} />
           <Route path="/hostel-results" element={<HostelResults />} />
           <Route path="/agent-dashboard" element={<AgentDashboard />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/post-item" element={<PostItem />} />
         </Routes>
         <Chatbot />
       </div>

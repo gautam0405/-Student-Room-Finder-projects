@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FilterButtons from '../components/FilterButtons';
 import './Room.css';
 
 const SearchRoom = () => {
   const navigate = useNavigate();
+  const [activeFilter, setActiveFilter] = useState('room');
   const [roomFilters, setRoomFilters] = useState({
     location: '',
     maxRent: '',
@@ -31,6 +33,10 @@ const SearchRoom = () => {
       return;
     }
   }, [navigate]);
+
+  const handleFilterChange = (filterId) => {
+    setActiveFilter(filterId);
+  };
 
   // Room handlers
   const handleRoomChange = (e) => {
@@ -113,20 +119,25 @@ const SearchRoom = () => {
   };
 
   return (
-    <div className="room-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '50px', fontSize: '2.5rem', fontWeight: 'bold' }}>
-        Find Your Perfect Accommodation
-      </h1>
+    <div>
+      {/* Filter Buttons */}
+      <FilterButtons onFilterChange={handleFilterChange} />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '30px' }}>
-        {/* Rooms Section */}
-        <div className="form-section glass" style={{ padding: '30px', borderRadius: '15px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)' }}>
-          <div style={{ marginBottom: '20px' }}>
-            <h2 style={{ fontSize: '1.8rem', marginBottom: '5px' }}>🏠 Rooms</h2>
-            <p style={{ color: '#999', fontSize: '0.95rem' }}>Find individual rooms & apartments</p>
-          </div>
-          
-          <form onSubmit={handleRoomSearch}>
+      <div className="room-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
+        <h1 style={{ textAlign: 'center', marginBottom: '50px', fontSize: '2.5rem', fontWeight: 'bold' }}>
+          Find Your Perfect Accommodation
+        </h1>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '30px' }}>
+          {/* Rooms Section */}
+          {activeFilter === 'room' && (
+            <div className="form-section glass" style={{ padding: '30px', borderRadius: '15px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)', animation: 'slideIn 0.5s ease' }}>
+              <div style={{ marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '1.8rem', marginBottom: '5px' }}>🚪 Rooms</h2>
+                <p style={{ color: '#999', fontSize: '0.95rem' }}>Find individual rooms & apartments</p>
+              </div>
+              
+              <form onSubmit={handleRoomSearch}>
             <input
               type="text"
               name="location"
@@ -200,10 +211,13 @@ const SearchRoom = () => {
             >
               Search Rooms →
             </button>
-          </form>
-        </div>
+        </form>
+</div>
+)}   
 
-        {/* Hostels Section */}
+{/* Hostels Section */}
+       
+        {activeFilter === 'hostel' && (
         <div className="form-section glass" style={{ padding: '30px', borderRadius: '15px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)' }}>
           <div style={{ marginBottom: '20px' }}>
             <h2 style={{ fontSize: '1.8rem', marginBottom: '5px' }}>🏨 Hostels</h2>
@@ -315,8 +329,10 @@ const SearchRoom = () => {
             </button>
           </form>
         </div>
+        )}
 
         {/* PG Section */}
+        {activeFilter === 'pg' && (
         <div className="form-section glass" style={{ padding: '30px', borderRadius: '15px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)' }}>
           <div style={{ marginBottom: '20px' }}>
             <h2 style={{ fontSize: '1.8rem', marginBottom: '5px' }}>🏘️ PG</h2>
@@ -398,9 +414,12 @@ const SearchRoom = () => {
             </button>
           </form>
         </div>
-      </div>
-    </div>
-  );
+              )}
+      </div>   
+    </div>     
+  </div>     
+);
+
 };
 
 export default SearchRoom;

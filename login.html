@@ -5,8 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Student Room Finder</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/login.css">
-
+  <style>
+    .login-credentials {
+      color: #ffcc00;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
 
@@ -24,22 +35,29 @@
       <div class="radio-group">
         <label class="radio-option">
           <input type="radio" name="role" value="user" checked>
-          <span>1. User</span>
+          <span>👤 User (Find Rooms)</span>
         </label>
         <label class="radio-option">
           <input type="radio" name="role" value="agent">
-          <span>2. Agent</span>
+          <span>🏢 Agent (Post Rooms)</span>
         </label>
         <label class="radio-option">
           <input type="radio" name="role" value="employee">
-          <span>3. Employee</span>
+          <span>👨‍💼 Employee</span>
         </label>
       </div>
     </div>
-    <input type="email" placeholder="Email Address" required>
-    <input type="password" placeholder="Password" required>
+    <input type="email" id="emailInput" placeholder="Email Address" required>
+    <input type="password" id="passwordInput" placeholder="Password" required>
     <button type="submit" class="btn-primary">Login</button>
   </form>
+
+  <div class="login-credentials">
+    <strong>📋 Test Accounts:</strong><br>
+    👤 john@example.com / 123456 (User)<br>
+    🏢 alex@example.com / 123456 (Agent)<br>
+    👨‍💼 admin@example.com / 123456 (Employee)
+  </div>
 
   <p class="login-link" style="margin-top:15px;">
     New user? <a href="register.html" style="color:#ffcc00; font-weight:600;">Register here</a>
@@ -47,34 +65,100 @@
 </section>
 
 <script>
-document.getElementById('loginForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const role = e.target.querySelector('input[name="role"]:checked').value;
-    const email = e.target.querySelector('input[type="email"]').value;
-    const password = e.target.querySelector('input[type="password"]').value;
-
-    if(!role || !email || !password){
-        alert("Please fill in all fields!");
-        return;
-    }
-
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.email === email && u.password === password && u.role === role);
-
-    if(user){
-        alert(`Login successful as ${role}!`);
-        localStorage.setItem('loggedInUser', JSON.stringify(user));
-        
-        // Redirect based on role
-        if(role === 'agent'){
-            window.location.href = "agent-dashboard.html";
-        } else if(role === 'employee'){
-            window.location.href = "employee-dashboard.html";
-        } else {
-            window.location.href = "index.html";
+// Initialize test users in localStorage
+window.addEventListener('DOMContentLoaded', function() {
+    const testUsers = [
+        { 
+            role: "user", 
+            name: "John Doe", 
+            email: "john@example.com", 
+            phone: "9876543210", 
+            location: "Delhi", 
+            password: "123456",
+            verified: true
+        },
+        { 
+            role: "agent", 
+            name: "Alex Agent", 
+            email: "alex@example.com", 
+            phone: "9876543211", 
+            location: "Mumbai", 
+            password: "123456",
+            verified: true
+        },
+        { 
+            role: "employee", 
+            name: "Admin User", 
+            email: "admin@example.com", 
+            phone: "9876543212", 
+            location: "Bangalore", 
+            password: "123456",
+            verified: true
         }
-    } else {
-        alert("Invalid email, password, or role!");
+    ];
+    
+    localStorage.setItem('users', JSON.stringify(testUsers));
+    console.log("✅ Test accounts initialized");
+    console.log(JSON.parse(localStorage.getItem('users')));
+});
+
+// Handle login form submission
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    try {
+        const role = document.querySelector('input[name="role"]:checked').value;
+        const email = document.getElementById('emailInput').value.trim();
+        const password = document.getElementById('passwordInput').value.trim();
+        
+        console.log("🔐 Login attempt:", { role, email, password });
+        
+        if (!role || !email || !password) {
+            alert("❌ Please fill in all fields!");
+            return;
+        }
+        
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        console.log("📦 Stored users:", users);
+        
+        // Find matching user
+        const foundUser = users.find(u => 
+            u.email === email && 
+            u.password === password && 
+            u.role === role
+        );
+        
+        if (foundUser) {
+            // Check if email is verified
+            if (!foundUser.verified) {
+                alert("⚠️ Email Not Verified\n\nPlease verify your email first before logging in.\n\nCreate a new account to get a verification code.");
+                return;
+            }
+
+            console.log("✅ Login successful:", foundUser);
+            localStorage.setItem('loggedInUser', JSON.stringify(foundUser));
+            
+            // Redirect based on role
+            if (role === 'agent') {
+                alert("✅ Login successful as Agent!");
+                window.location.href = "agent-dashboard.html";
+            } else if (role === 'employee') {
+                alert("✅ Login successful as Employee!");
+                window.location.href = "employee-dashboard.html";
+            } else {
+                alert("✅ Login successful as User!");
+                window.location.href = "index.html";
+            }
+        } else {
+            console.log("❌ User not found. Checking stored data:");
+            users.forEach(u => {
+                console.log(`User: ${u.email} (${u.role}), Password: ${u.password}`);
+            });
+            alert("❌ Invalid credentials!\n\nPlease verify:\n- Role is selected\n- Email: alex@example.com\n- Password: 123456");
+        }
+    } catch (error) {
+        console.error("❌ Login error:", error);
+        alert("❌ An error occurred: " + error.message);
     }
 });
 </script>

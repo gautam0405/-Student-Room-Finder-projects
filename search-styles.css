@@ -1,61 +1,91 @@
-/* Modern Search Bar Styles - Airbnb/Booking.com Inspired */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Modern search bar styles for Room Finder - Airbnb/Booking.com inspired */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-end;
+  background: #f7f7fa;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(102,126,234,0.08);
+  padding: 24px 16px;
+  margin-bottom: 0;
 }
-
-:root {
-  --primary-color: #667eea;
-  --primary-dark: #764ba2;
-  --text-primary: #1f2937;
-  --text-secondary: #9ca3af;
-  --border-color: #e5e7eb;
-  --background-light: #f9fafb;
-  --background-focus: #f0f4f8;
-  --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 40px rgba(0, 0, 0, 0.15);
-  --shadow-hover: 0 8px 12px rgba(0, 0, 0, 0.1), 0 15px 50px rgba(0, 0, 0, 0.2);
-  --shadow-success: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 40px rgba(52, 211, 153, 0.2);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --transition: all 0.3s ease;
+.search-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  flex: 1 1 160px;
+  margin-bottom: 0;
 }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+.search-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #667eea;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  gap: 6px;
 }
-
-.search-container {
-  width: 100%;
-  max-width: 1200px;
-}
-
-/* Hero Header */
-.hero-header {
-  text-align: center;
-  color: white;
-  margin-bottom: 50px;
-  animation: slideUp 0.6s ease;
-}
-
-.hero-header h1 {
-  font-size: 3rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-  letter-spacing: -1px;
-}
-
-.hero-header p {
+.search-icon {
   font-size: 1.2rem;
-  opacity: 0.95;
-  font-weight: 400;
+}
+.search-input, .search-select {
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #333;
+  outline: none;
+  transition: border 0.2s;
+}
+.search-input:focus, .search-select:focus {
+  border-color: #667eea;
+}
+.search-select {
+  appearance: none;
+}
+.search-button-container {
+  flex: 0 0 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.search-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(102,126,234,0.18);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.search-btn:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 8px 32px rgba(102,126,234,0.22);
+}
+@media (max-width: 700px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 4px;
+  }
+  .search-field {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+  .search-btn {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1rem;
+  }
 }
 
 /* Main Search Bar Container */

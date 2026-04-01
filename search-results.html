@@ -21,10 +21,13 @@
     </nav>
 </header>
 
-<section class="form-section glass">
-    <h2>Search Results</h2>
+<section class="pricing-section">
+    <div class="pricing-header">
+        <h2>Available Rooms</h2>
+        <p>Find the perfect room for your student needs</p>
+    </div>
 
-    <div id="searchResults" class="results">
+    <div id="searchResults" class="pricing-cards">
         <!-- Results will be populated by JavaScript -->
     </div>
 
@@ -43,19 +46,44 @@
             const results = JSON.parse(decodeURIComponent(resultsData));
 
             if (results.length === 0) {
-                resultsDiv.innerHTML = '<p>No rooms found matching your criteria.</p>';
+                resultsDiv.innerHTML = '<p class="no-results">No rooms found matching your criteria.</p>';
             } else {
                 results.forEach(room => {
                     const card = document.createElement('div');
-                    card.classList.add('result-card');
+                    card.classList.add('pricing-card');
+                    
+                    const statusClass = room.status === 'Available' ? 'available' : 'unavailable';
 
                     card.innerHTML = `
-                        <h3>${room.location}</h3>
-                        <p><b>Address:</b> ${room.address}</p>
-                        <p><b>Rent:</b> ₹${room.rent}</p>
-                        <p><b>Type:</b> ${room.type}</p>
-                        <p><b>Status:</b> ${room.status}</p>
-                        <button class="btn-primary" onclick="contactOwner('${room.contact || 'N/A'}')">Contact Owner</button>
+                        <div class="pricing-card-header">
+                            <h3 class="room-name">${room.location}</h3>
+                            <span class="status-badge ${statusClass}">${room.status}</span>
+                        </div>
+                        
+                        <div class="price-container">
+                            <div class="price">
+                                <span class="currency">₹</span>
+                                <span class="amount">${room.rent}</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="room-features">
+                            <p class="feature-item">
+                                <svg class="feature-icon" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5.951-1.488 5.951 1.488a1 1 0 001.169-1.409l-7-14z"></path>
+                                </svg>
+                                ${room.address}
+                            </p>
+                            <p class="feature-item">
+                                <svg class="feature-icon" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                                </svg>
+                                <strong>${room.type}</strong> Room Type
+                            </p>
+                        </div>
+
+                        <button class="btn-primary btn-contact" onclick="contactOwner('${room.contact || 'N/A'}')">Contact Owner</button>
                     `;
 
                     resultsDiv.appendChild(card);
